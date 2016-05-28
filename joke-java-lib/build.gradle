@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+task getJokes(type: JavaExec) {
+    main = "com.harinivaskumarrp.java.library.Joke"
+    classpath = sourceSets.main.runtimeClasspath
+}
