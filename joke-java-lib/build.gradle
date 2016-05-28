@@ -8,3 +8,6 @@ task getJokes(type: JavaExec) {
     main = "com.harinivaskumarrp.java.library.Joke"
     classpath = sourceSets.main.runtimeClasspath
 }
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
