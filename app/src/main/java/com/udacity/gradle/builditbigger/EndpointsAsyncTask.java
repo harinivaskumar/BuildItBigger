@@ -17,6 +17,11 @@ import java.io.IOException;
 /**
  * Created by Hari Nivas Kumar R P on 5/28/2016.
  */
+
+/**
+ * From google Source
+ * https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints
+ */
 public class EndpointsAsyncTask extends AsyncTask<Void, Void, Void> {
     private static final String LOG_TAG = EndpointsAsyncTask.class.getSimpleName();
     private static MyApi myApiService = null;
