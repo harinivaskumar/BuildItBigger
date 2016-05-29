@@ -26,6 +26,7 @@ android {
 dependencies {
     compile project(':joke-java-lib')
     compile project(':joke-and-lib')
+    compile project(path: ':joke-gcm-backend', configuration: 'android-endpoints')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
     // Added for AdMob
