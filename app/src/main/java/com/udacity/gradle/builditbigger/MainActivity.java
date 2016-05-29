@@ -3,9 +3,11 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.harinivaskumarrp.android.library.JokeDisplayActivity;
 
@@ -44,15 +46,25 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
     }
 
     public void displayJoke(View view){
-        new EndpointsAsyncTask(this, this, "HariNivas")
-                .execute();
+        if (Utility.isNetworkAvailable(this, LOG_TAG)) {
+            new EndpointsAsyncTask(this, this, "HariNivas")
+                    .execute();
+        }else{
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void getJokeResult(String joke) {
-        Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
-        //jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, Joke.getJoke());
-        jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, joke);
-        startActivity(jokeDisplayIntent);
+        if (null == joke){
+            Toast.makeText(this, "No Joke currently! try after some time.", Toast.LENGTH_SHORT).show();
+            Log.e(LOG_TAG, "Joke String is null!");
+        }
+        else {
+            Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
+            //jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, Joke.getJoke());
+            jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, joke);
+            startActivity(jokeDisplayIntent);
+        }
     }
 }
