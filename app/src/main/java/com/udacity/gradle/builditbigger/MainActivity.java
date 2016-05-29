@@ -1,13 +1,18 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.harinivaskumarrp.android.library.JokeDisplayActivity;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.JokeListener{
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayJoke(View view){
-        new EndpointsAsyncTask(this, "HariNivas").execute();
+        new EndpointsAsyncTask(this, this, "HariNivas")
+                .execute();
+    }
+
+    @Override
+    public void getJokeResult(String joke) {
+        Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
+        //jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, Joke.getJoke());
+        jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, joke);
+        startActivity(jokeDisplayIntent);
     }
 }

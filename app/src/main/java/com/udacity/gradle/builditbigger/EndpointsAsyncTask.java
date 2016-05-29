@@ -1,7 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -9,7 +8,6 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.harinivaskumarrp.android.library.JokeDisplayActivity;
 import com.harinivaskumarrp.jokegcm.backend.myApi.MyApi;
 
 import java.io.IOException;
@@ -28,9 +26,11 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, Void> {
     private Context mContext;
     private String mJokeString;
     private String mNameString;
+    private JokeListener mJokeListener;
 
-    public EndpointsAsyncTask(Context context, String nameStr){
+    public EndpointsAsyncTask(Context context, JokeListener jokeListener, String nameStr){
         mContext = context;
+        mJokeListener = jokeListener;
         mNameString = nameStr;
     }
 
@@ -66,9 +66,10 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void jokeString) {
         //Toast.makeText(mContext, mJokeString, Toast.LENGTH_LONG).show();
-        Intent jokeDisplayIntent = new Intent(mContext, JokeDisplayActivity.class);
-        //jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, Joke.getJoke());
-        jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, mJokeString);
-        mContext.startActivity(jokeDisplayIntent);
+        mJokeListener.getJokeResult(mJokeString);
+    }
+
+    public interface JokeListener{
+        void getJokeResult(String joke);
     }
 }
