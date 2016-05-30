@@ -13,7 +13,7 @@ public class JokeGCMBackEndTest extends AndroidTestCase implements EndpointsAsyn
     private String jokeStr;
 
     public void testBackend() throws ExecutionException, InterruptedException{
-        new EndpointsAsyncTask(mContext, this,"Hari").execute();
+        new EndpointsAsyncTask(mContext, this,"Hari").execute().get();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class JokeGCMBackEndTest extends AndroidTestCase implements EndpointsAsyn
                     }
                 },
                 "Nivas")
-                .execute();
+                .execute().get();
         
         Log.d(LOG_TAG, "Joke is - " + jokeStr + " and Length - " + jokeStr.length());
         assertTrue(jokeStr, jokeStr.length() > 0);
