@@ -17,3 +17,20 @@ allprojects {
         jcenter()
     }
 }
+
+/*
+Configure Test Task
+
+To tie it all together, create a Gradle task that:
+
+Launches the GCE local development server
+Runs all tests
+Shuts the server down again
+ */
+task gceTestTask(dependsOn: [tasks.getByPath(':joke-gcm-backend:appengineRun'),
+                             tasks.getByPath(':app:connectedCheck'),
+                             tasks.getByPath(':joke-gcm-backend:appengineStop')]){
+    doLast {
+        println 'gceTestTask completed'
+    }
+}
